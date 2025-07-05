@@ -9,7 +9,7 @@ function Header() {
   const [categories, setCategories] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
 
-  const {gf, filter, setFilter, favorites } = GifState();
+  const {gf, favorites } = GifState();
 
   const fetchGifCategories = async ()=>{
     const {data} = await gf.categories();
@@ -63,7 +63,7 @@ function Header() {
       </div>
 
       {showCategories&& (
-        <div className="absolute w-full mt-1 bg-gradient-to-r from-pink-400 to-violet-600 z-10">
+        <div className="absolute w-full mt-2 rounded shadow-2xl bg-gradient-to-r from-pink-400 to-violet-600 z-10">
           <p className="text-3xl font-bold p-3">Categories</p>
           <hr />
           <div className="p-3 grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 ">
