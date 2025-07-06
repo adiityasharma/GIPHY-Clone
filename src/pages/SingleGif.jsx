@@ -17,6 +17,7 @@ function SingleGif() {
   const [gif, setGif] = useState();
   const [relatedGif, setRelatedGif] = useState([]);
   const [readMore, setReadMore] = useState(false);
+  const [copied, setCopied] = useState(false);
   // const [favorites, setFavorites] = useState([])
 
   const { gf, addToFavorite, favorites } = GifState();
@@ -34,13 +35,11 @@ function SingleGif() {
     setRelatedGif(data);
   };
 
-  const shareGif = ()=>{
-
-  }
-  const embedGif = ()=>{
-
-  }
-
+  const shareGif = async (url) => {
+    await window.navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   useEffect(() => {
     if (!contentType.includes(type)) {
@@ -118,55 +117,79 @@ function SingleGif() {
         )}
       </div>
 
-      <div className="col-span-4 sm:col-span-3">
-        <div className="flex gap-6">
-          <div className="w-full sm:w-3/4">
-            {/* <div>{gif?.title}</div> */}
+      <div className="col-span-4 sm:col-span-3 relative">
+        <div className="flex gap-6 ">
+          <div className="w-full sm:w-3/4 ">
+            {/* LInk copied ui popup */}
+
+            {copied && (
+              <h1 className="absolute top-50 left-50 text-3xl -translate-x-50 -translate-y-50 z-20">
+                Link Copied to Clipboard
+              </h1>
+            )}
+
             <Gif gif={gif} hover={false} />
 
             {/* mobile ui */}
 
-            <div className="flex sm:hidden gap-1 mb-3" >
-              <img 
-                src={gif?.user?.avatar_url} 
-                alt={gif?.user?.display_name}
-                className="w-10"
-              />
-              <div className="px-2">
-                <div className="font-bold w-30 truncate">{gif?.user?.display_name}</div>
-                <div className="faded-text">@{gif?.user?.username}</div>
-              </div>
+            <div className="flex sm:hidden gap-1 mb-3">
+              {gif?.user && (
+                <>
+                  <img
+                    src={gif?.user?.avatar_url}
+                    alt={gif?.user?.display_name}
+                    className="w-10"
+                  />
+                  <div className="px-2">
+                    <div className="font-bold w-30 truncate">
+                      {gif?.user?.display_name}
+                    </div>
+                    <div className="faded-text">@{gif?.user?.username}</div>
+                  </div>
+                </>
+              )}
 
-              <button 
-                className="ml-auto" 
+              <button
+                className={`${gif?.user ? "ml-auto" : ""} `}
                 // onClick={shareGif}
               >
-                <FaPaperPlane size={25}/> 
+                <FaPaperPlane size={25} />
+              </button>
+
+              <button
+                onClick={() => addToFavorite(gif?.id)}
+                className="cursor-pointer flex gap-3 items-center font-bold text-lg ml-3"
+              >
+                <HiMiniHeart
+                  size={30}
+                  className={`${
+                    favorites?.includes(gif?.id) ? "text-red-600" : "text-white"
+                  }`}
+                />
               </button>
             </div>
-
           </div>
-          
+
           <div className="hidden sm:flex flex-col gap-5 mt-6">
-            <button onClick={()=>addToFavorite(gif?.id)} className="cursor-pointer flex gap-3 items-center font-bold text-lg">
-              <HiMiniHeart size={30} className={`${favorites?.includes(gif?.id) ? "text-red-600" : "text-white"}` } />
+            <button
+              onClick={() => addToFavorite(gif?.id)}
+              className="cursor-pointer flex gap-3 items-center font-bold text-lg"
+            >
+              <HiMiniHeart
+                size={30}
+                className={`${
+                  favorites?.includes(gif?.id) ? "text-red-600" : "text-white"
+                }`}
+              />
               Favorite
             </button>
 
-            <button 
-              onClick={shareGif}
+            <button
+              onClick={() => shareGif(gif?.embed_url)}
               className="cursor-pointer flex gap-3 items-center font-bold text-lg"
             >
-              <FaPaperPlane size={25}/>
+              <FaPaperPlane size={25} />
               Share
-            </button>
-
-            <button
-              onClick={embedGif}
-              className="cursor-pointer flex gap-3 items-center font-bold text-lg "
-            >
-              <IoCodeSharp size={25}/>
-              Embed
             </button>
           </div>
         </div>
@@ -174,13 +197,10 @@ function SingleGif() {
           <span className="font-extrabold text-2xl">Related GIFs</span>
 
           <div className="columns-2 md:columns-3 gap-4 mt-4">
-            {
-              relatedGif?.slice(1).map((gif)=>(
-                <Gif gif={gif} key={gif.id} />
-              ))
-            }
+            {relatedGif?.slice(1).map((gif) => (
+              <Gif gif={gif} key={gif.id} />
+            ))}
           </div>
-
         </div>
       </div>
     </div>
