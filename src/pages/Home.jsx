@@ -21,7 +21,7 @@ function Home() {
   useEffect(()=>{
     fetchTrendingGifs();
   }, [filter])
-  console.log(gif)
+  // console.log(gif)
   return (
     <div className='w-full py-2'>
       <div className='w-full '>

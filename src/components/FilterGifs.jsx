@@ -42,8 +42,9 @@ function FilterGifs({ alignLeft = false, showTrending = false }) {
       )}
 
       <div className="bg-gray-700 flex justify-between items-center sm:min-w-70  rounded-full">
-        {filters.map((f) => {
+        {filters.map((f, i) => {
           return <span 
+            key={i}
             onClick={()=> setFilter(f.value)}
             className={` ${filter == f.value ? f.background : ""} font-semibold py-2 w-1/3 text-center rounded-full cursor-pointer px-3 `} 
             >

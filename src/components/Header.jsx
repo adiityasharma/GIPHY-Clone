@@ -4,6 +4,7 @@ import { CgMenuRight } from "react-icons/cg";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { GifState } from "../context/GifContext";
+import GifSearch from "./GifSearch";
 
 function Header() {
   const [categories, setCategories] = useState([]);
@@ -60,6 +61,10 @@ function Header() {
             <CgMenuRight size={25} />
           </div>
         </div>
+      </div>
+
+      <div>
+        <GifSearch/>
       </div>
 
       {showCategories&& (
