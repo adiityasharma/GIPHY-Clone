@@ -60,19 +60,41 @@ function Header() {
           >
             <div className={`flex items-center cursor-pointer`}>
               <Link to="/favorites">
-                <h1 className="px-3 bg-red-600 rounded py-2 md:block">Favorites</h1>
-                <HiMiniHeart className="text-red-500 block md:hidden" size={25} />
+                <h1 className="px-3 bg-red-600 rounded py-2 md:block">
+                  Favorites
+                </h1>
+                <HiMiniHeart
+                  className="text-red-500 block md:hidden"
+                  size={25}
+                />
               </Link>
             </div>
+          </div>
+        </div>
 
-            <div
-              onClick={() => setShowCategories(!showCategories)}
-              className={`block lg:hidden px-3 py-2 cursor-pointer ${
-                showCategories ? "text-green-400 " : ""
-              }`}
-            >
-              <CgMenuRight size={25} />
+        <div className="flex items-center lg:hidden">
+          <div
+            className={`${
+              favorites.length != 0 ? "flex" : "hidden"
+            } gap-0 items-center`}
+          >
+            <div className={`flex items-center cursor-pointer`}>
+              <Link to="/favorites">
+                <HiMiniHeart
+                  className="text-red-500 "
+                  size={25}
+                />
+              </Link>
             </div>
+          </div>
+
+          <div
+            onClick={() => setShowCategories(!showCategories)}
+            className={`flex lg:hidden px-3 py-2 cursor-pointer ${
+              showCategories ? "text-green-400 " : ""
+            }`}
+          >
+            <CgMenuRight size={25} />
           </div>
         </div>
       </div>
