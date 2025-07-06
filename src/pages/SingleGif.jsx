@@ -7,6 +7,8 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import FollowOn from "../components/FollowOn";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FaPaperPlane } from "react-icons/fa";
+import { HiMiniHeart } from "react-icons/hi2";
+import { IoCodeSharp } from "react-icons/io5";
 
 function SingleGif() {
   const contentType = ["gifs", "stickers", "texts"];
@@ -15,8 +17,9 @@ function SingleGif() {
   const [gif, setGif] = useState();
   const [relatedGif, setRelatedGif] = useState([]);
   const [readMore, setReadMore] = useState(false);
+  // const [favorites, setFavorites] = useState([])
 
-  const { gf } = GifState();
+  const { gf, addToFavorite, favorites } = GifState();
 
   const fetchGif = async () => {
     const gifId = slug?.split("-");
@@ -30,7 +33,14 @@ function SingleGif() {
     const { data } = await gf.related(gifId[gifId.length - 1]);
     setRelatedGif(data);
   };
-  // console.log(relatedGif);
+
+  const shareGif = ()=>{
+
+  }
+  const embedGif = ()=>{
+
+  }
+
 
   useEffect(() => {
     if (!contentType.includes(type)) {
@@ -39,7 +49,7 @@ function SingleGif() {
 
     fetchGif();
     fetchRelatedGif();
-  }, []);
+  }, [slug]);
 
   return (
     <div className="grid grid-cols-4 my-3 gap-4">
@@ -136,10 +146,41 @@ function SingleGif() {
             </div>
 
           </div>
-          favorites share embed
+          
+          <div className="hidden sm:flex flex-col gap-5 mt-6">
+            <button onClick={()=>addToFavorite(gif?.id)} className="cursor-pointer flex gap-3 items-center font-bold text-lg">
+              <HiMiniHeart size={30} className={`${favorites?.includes(gif?.id) ? "text-red-600" : "text-white"}` } />
+              Favorite
+            </button>
+
+            <button 
+              onClick={shareGif}
+              className="cursor-pointer flex gap-3 items-center font-bold text-lg"
+            >
+              <FaPaperPlane size={25}/>
+              Share
+            </button>
+
+            <button
+              onClick={embedGif}
+              className="cursor-pointer flex gap-3 items-center font-bold text-lg "
+            >
+              <IoCodeSharp size={25}/>
+              Embed
+            </button>
+          </div>
         </div>
-        <div>
+        <div className="">
           <span className="font-extrabold text-2xl">Related GIFs</span>
+
+          <div className="columns-2 md:columns-3 gap-4 mt-4">
+            {
+              relatedGif?.slice(1).map((gif)=>(
+                <Gif gif={gif} key={gif.id} />
+              ))
+            }
+          </div>
+
         </div>
       </div>
     </div>

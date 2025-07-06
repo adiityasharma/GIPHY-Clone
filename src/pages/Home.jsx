@@ -32,8 +32,8 @@ function Home() {
 
       <div className='w-full my-4 columns-2 md:columns-3 lg:columns-4  '>
         {
-          gif.map((gif)=>{
-            return <Gif gif={gif} key={gif.title} />
+          gif.map((gif, idx)=>{
+            return <Gif gif={gif} key={idx} />
           })
         }
       </div>
