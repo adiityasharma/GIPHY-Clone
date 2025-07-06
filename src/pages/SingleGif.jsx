@@ -9,6 +9,7 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 import { FaPaperPlane } from "react-icons/fa";
 import { HiMiniHeart } from "react-icons/hi2";
 import { IoCodeSharp } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 function SingleGif() {
   const contentType = ["gifs", "stickers", "texts"];
@@ -17,7 +18,7 @@ function SingleGif() {
   const [gif, setGif] = useState();
   const [relatedGif, setRelatedGif] = useState([]);
   const [readMore, setReadMore] = useState(false);
-  const [copied, setCopied] = useState(false);
+  // const [copied, setCopied] = useState(false);
   // const [favorites, setFavorites] = useState([])
 
   const { gf, addToFavorite, favorites } = GifState();
@@ -37,8 +38,8 @@ function SingleGif() {
 
   const shareGif = async (url) => {
     await window.navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    toast.success("Link Copied to Clipboard")
+    // setTimeout(() => setCopied(false), 2000);
   };
 
   useEffect(() => {
@@ -51,7 +52,7 @@ function SingleGif() {
   }, [slug]);
 
   return (
-    <div className="grid grid-cols-4 my-3 gap-4">
+    <div className="grid grid-cols-4 my-3 gap-4 relative">
       <div className="hidden sm:block">
         {gif?.user && (
           <>
@@ -117,16 +118,9 @@ function SingleGif() {
         )}
       </div>
 
-      <div className="col-span-4 sm:col-span-3 relative">
+      <div className="col-span-4 sm:col-span-3">
         <div className="flex gap-6 ">
           <div className="w-full sm:w-3/4 ">
-            {/* LInk copied ui popup */}
-
-            {copied && (
-              <h1 className="absolute top-50 left-50 text-3xl -translate-x-50 -translate-y-50 z-20">
-                Link Copied to Clipboard
-              </h1>
-            )}
 
             <Gif gif={gif} hover={false} />
 
@@ -150,7 +144,8 @@ function SingleGif() {
               )}
 
               <button
-                className={`${gif?.user ? "ml-auto" : ""} `}
+                className={`${gif?.user ? "ml-auto" : ""} cursor-pointer`}
+                onClick={() => shareGif(gif?.embed_url)}
                 // onClick={shareGif}
               >
                 <FaPaperPlane size={25} />
