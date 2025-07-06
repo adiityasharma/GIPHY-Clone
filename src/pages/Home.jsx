@@ -10,7 +10,7 @@ function Home() {
   const fetchTrendingGifs = async()=>{
     const {data} = await gf.trending(
       {
-        limit:25,
+        
         rating: "g",
         type: filter
       }

@@ -14,7 +14,6 @@ function Search() {
     try {
       const { data } = await gf.search(query, {
         sort: "relevant",
-        limit: 20,
         lg: "en",
         type: filter,
       });

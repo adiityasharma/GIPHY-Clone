@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+
+
+@layer utilities{
+
+  .faded-text{
+    @apply font-bold text-sm text-gray-400
+  }
+
+
+}

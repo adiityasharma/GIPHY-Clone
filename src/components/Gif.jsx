@@ -7,12 +7,12 @@ function Gif(gif, hover=true) {
 
   return (
     
-    <Link to={`${gifData?.type}/${gifData.slug}`}>
+    <Link to={`/${gifData?.type}s/${gifData?.slug}`}>
       <div className={` mb-5 relative cursor-pointer lg:w-[${gifData?.images?.fixed_width.width}px] group aspect-video`}>
         <img 
           src={gifData?.images?.fixed_width.webp} 
           alt={gifData?.title} 
-          className='w-full object-cover rounded transition-all duration-300'
+          className='w-full object-cover rounded-xl transition-all duration-300'
         />
 
         {
