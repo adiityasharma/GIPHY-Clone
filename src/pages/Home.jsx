@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import { GifState } from '../context/GifContext'
 import Gif from '../components/Gif';
 import FilterGifs from '../components/FilterGifs';
@@ -6,22 +6,54 @@ import FilterGifs from '../components/FilterGifs';
 function Home() {
 
   const {gf, gif, setGif, filter} = GifState();
+  const [page, setPage] = useState(0)
+  const loaderRef = useRef(null)
+  const [gifLimit, setGifLimit] = useState(25)
 
   const fetchTrendingGifs = async()=>{
     const {data} = await gf.trending(
       {
-        
+        limit:gifLimit,
         rating: "g",
-        type: filter
+        type: filter,
+        offset: page
       }
     )
-    setGif(data)
+    setGif(prev => [...prev, ...data])
   }
 
   useEffect(()=>{
+    if(!loaderRef.current) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (enteries)=>{
+        if(enteries[0].isIntersecting){
+          setPage(prev => prev + gifLimit)
+          console.log(page)
+        }
+      },
+      {threshold: 0.5}
+    ) 
+
+    observer.observe(loaderRef.current);
+
+
+    return ()=>{
+      if(loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    }
+
+  },[])
+  
+
+  useEffect(()=>{
     fetchTrendingGifs();
-  }, [filter])
-  // console.log(gif)
+  }, [filter, page])
+
+  
   return (
     <div className='w-full py-2'>
       <div className='w-full '>
@@ -36,6 +68,11 @@ function Home() {
             return <Gif gif={gif} key={idx} />
           })
         }
+      </div>
+
+      <div ref={loaderRef} className=' text-center w-full p-10 text-2xl' >
+        <p>Loading more...</p>
+        {/* {loading && <p>Loading more...</p>} */}
       </div>
 
     </div>

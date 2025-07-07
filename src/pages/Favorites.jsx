@@ -21,11 +21,15 @@ function Favorites() {
     <div className="mt-2">
       <h1 className="text-lg text-gray-400">My Favorites</h1>
 
-      <div className="w-full my-4 columns-2 md:columns-3 lg:columns-4  ">
-        {favoriteGIFs?.map((gif, idx) => {
-          return <Gif gif={gif} key={idx} />;
-        })}
-      </div>
+      {favoriteGIFs.length > 0 ? (
+        <div className="w-full my-4 columns-2 md:columns-3 lg:columns-4  ">
+          {favoriteGIFs?.map((gif, idx) => {
+            return <Gif gif={gif} key={idx} />;
+          })}
+        </div>
+      ) : (
+        <div className="text-center p-10 text-xl">No Favorites GIFs, Stickers, Texts found :( </div>
+      )}
     </div>
   );
 }
