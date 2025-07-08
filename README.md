@@ -1,12 +1,44 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# GIPHY‑Clone 🎬
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A React + Tailwind-built replica of the popular Giphy.com interface, using the official Giphy API. This project was created for learning and refining frontend development skills.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Demo
+
+
+
+
+
+## Features
+
+- Search GIFs: Users can enter keywords to view related GIFs.
+- Trending: Retrieves and displays currently popular GIFs.
+- Random GIF: Showcases a new, random GIF on demand.
+- Responsive Design: Mobile-first layout ensures compatibility across all devices.
+- Styled with Tailwind CSS for modular, utility-first styling.
+- Uses React Hooks and Context API for clean state management.
+- Added infinite scrolling on home page via Intersection Observer API.
+- Share Button: This will copy the link on your clipboard.
+- Add to Favorite: Used Local Storage for storing favorites GIFs.
+- Category List
+
+## Tech Stack
+
+**React/ Vite** – UI components and state management and Fast development and bundling
+
+**Tailwind CSS** – Styling framework
+
+**Giphy API** – Data source for GIF content
+
+React Router, Fetch, Custom Hooks, Context API
+
+
+## 🚀 About Me
+
+Hi, I’m Aditya Sharma. I love building interactive web apps with React and exploring creative UX. Let’s connect!
+
+- Email: adityasharma626367@gmail.com
+- GitHub: @adiityasharma  
+- Twitter: https://x.com/adityasharma_16
